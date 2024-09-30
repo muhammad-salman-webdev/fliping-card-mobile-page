@@ -1,16 +1,58 @@
+// // Select all elements with the class "dynamic" that have the attribute "data-write-infinite-text"
+// const elements = document.querySelectorAll(
+//   ".dynamic[data-write-infinite-text]"
+// );
+
+// // Loop through each element to create a typing effect
+// elements.forEach((element) => {
+//   // Select the first <span> element inside the current element
+//   const textElement = element.querySelector("span:first-child");
+//   // Store the original text content for typing and deleting
+//   const originalText = textElement.textContent;
+//   let charIndex = 0; // To track the current character position
+//   let isDeleting = false; // To toggle between typing and deleting
+
+//   // Function to create the typing and deleting effect
+//   function typeEffect() {
+//     // If typing and not reached the end of the text
+//     if (!isDeleting && charIndex < originalText.length) {
+//       textElement.textContent = originalText.substring(0, charIndex + 1); // Type one more character
+//       charIndex++; // Increment character index
+//       setTimeout(typeEffect, 130); // Adjust typing speed
+//     }
+//     // If deleting characters
+//     else if (isDeleting && charIndex > 0) {
+//       textElement.textContent = originalText.substring(0, charIndex - 1); // Remove one character
+//       charIndex--; // Decrement character index
+//       setTimeout(typeEffect, 50); // Adjust deleting speed
+//     }
+//     // If the entire text has been typed
+//     else if (charIndex === originalText.length) {
+//       setTimeout(() => {
+//         isDeleting = true; // Switch to deleting mode
+//         typeEffect();
+//       }, 500); // Pause before starting to delete
+//     }
+//     // If the text has been completely deleted
+//     else if (isDeleting && charIndex === 0) {
+//       isDeleting = false; // Switch to typing mode
+//       setTimeout(typeEffect, 500); // Pause before typing again
+//     }
+//   }
+
+//   typeEffect(); // Start the typing effect for each element
+// });
 // Select all elements with the class "dynamic" that have the attribute "data-write-infinite-text"
 const elements = document.querySelectorAll(
   ".dynamic[data-write-infinite-text]"
 );
 
 // Loop through each element to create a typing effect
-elements.forEach((element) => {
-  // Select the first <span> element inside the current element
+elements.forEach((element, index) => {
   const textElement = element.querySelector("span:first-child");
-  // Store the original text content for typing and deleting
   const originalText = textElement.textContent;
-  let charIndex = 0; // To track the current character position
-  let isDeleting = false; // To toggle between typing and deleting
+  let charIndex = 0;
+  let isDeleting = false;
 
   // Function to create the typing and deleting effect
   function typeEffect() {
@@ -40,7 +82,8 @@ elements.forEach((element) => {
     }
   }
 
-  typeEffect(); // Start the typing effect for each element
+  // Start typing effect with a delay of 0.3s * index (adds a staggered start)
+  setTimeout(typeEffect, index * 400);
 });
 
 // Select all swiper popup elements
@@ -110,47 +153,50 @@ allFlipCardsElems.forEach((flipCard) => {
   const popupOpenBtn = flipCard.querySelector(
     "a[data-learn-more-popup-open-btn]"
   );
-  // Select the popup container
-  const popup = flipCard.querySelector(
-    ".rotating-section-popup-main[data-flip-card-toggle-popup-container]"
-  );
-  // Select the close button inside the popup
-  const popupCloseBtn = popup.querySelector(
-    "button.c_popup-close-btn[data-flip-popup-close-btn]"
-  );
-
-  const body = document.body; // Reference to the body element to disable scrolling when popup is open
 
   const popupOverlay = flipCard.querySelector(
     ".fliping-overlay[data-fliping-overlay]"
   );
+  if (popupOpenBtn) {
+    // Select the popup container
+    const popup = flipCard.querySelector(
+      ".rotating-section-popup-main[data-flip-card-toggle-popup-container]"
+    );
+    // Select the close button inside the popup
+    const popupCloseBtn = popup.querySelector(
+      "button.c_popup-close-btn[data-flip-popup-close-btn]"
+    );
 
-  // Add click event listener to the "Learn More" button to show the popup
-  popupOpenBtn.addEventListener("click", (e) => {
-    e.preventDefault(); // Prevent default link behavior
-    popup.classList.add("show"); // Show the popup
-    body.classList.add("no-scroll"); // Disable scrolling on the body
+    const body = document.body; // Reference to the body element to disable scrolling when popup is open
 
-    setTimeout(() => {
-      popup.scrollTo({ top: 0, behavior: "smooth" }); // Scroll popup content to the top smoothly
-      popup.classList.add("anim"); // Add animation class for popup
-    }, 10); // Delay to ensure popup is fully visible before animating
-  });
+    // Add click event listener to the "Learn More" button to show the popup
 
-  function closePopup() {
-    popup.classList.remove("anim"); // Remove animation class
-    body.classList.remove("no-scroll"); // Enable scrolling on the body again
+    popupOpenBtn.addEventListener("click", (e) => {
+      e.preventDefault(); // Prevent default link behavior
+      popup.classList.add("show"); // Show the popup
+      body.classList.add("no-scroll"); // Disable scrolling on the body
 
-    setTimeout(() => {
-      popup.classList.remove("show"); // Hide the popup
-    }, 300); // Delay to ensure the closing animation finishes
+      setTimeout(() => {
+        popup.scrollTo({ top: 0, behavior: "smooth" }); // Scroll popup content to the top smoothly
+        popup.classList.add("anim"); // Add animation class for popup
+      }, 10); // Delay to ensure popup is fully visible before animating
+    });
+
+    function closePopup() {
+      popup.classList.remove("anim"); // Remove animation class
+      body.classList.remove("no-scroll"); // Enable scrolling on the body again
+
+      setTimeout(() => {
+        popup.classList.remove("show"); // Hide the popup
+      }, 300); // Delay to ensure the closing animation finishes
+    }
+
+    // Add click event listener to the close button to hide the popup
+    popupCloseBtn.addEventListener("click", closePopup);
+    popup.addEventListener("click", (e) => {
+      e.target === popup ? closePopup() : "";
+    });
   }
-
-  // Add click event listener to the close button to hide the popup
-  popupCloseBtn.addEventListener("click", closePopup);
-  popup.addEventListener("click", (e) => {
-    e.target === popup ? closePopup() : "";
-  });
 
   // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
