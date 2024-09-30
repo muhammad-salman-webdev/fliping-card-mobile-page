@@ -456,6 +456,32 @@ body.no-scroll {
                            color: #ffffff;
                         }
                      }
+
+                     .integrate-with {
+                        margin-top: 100px;
+
+                        h5 {
+                           font-family: 'Inter';
+                           font-size: 10.5px;
+                           font-weight: 400;
+                           line-height: 12.71px;
+                           color: #DFE0E4;
+                        }
+
+                        ul {
+                           margin-top: 10px;
+                           display: flex;
+                           list-style: none;
+                           gap: 15px;
+                           align-items: center;
+
+                           li {
+                              img {
+                                 width: 58px;
+                              }
+                           }
+                        }
+                     }
                   }
 
                   .rotating-card-img {
@@ -653,6 +679,7 @@ body.no-scroll {
                .side-content-container {
                   .rotating-card-img {
                      padding: 50px 110px 50px 80px;
+                     align-items: center;
                   }
                }
 
@@ -1409,6 +1436,24 @@ body.no-scroll {
    }
 }
 
+@media (max-width: 1200px) {
+   .mobile-flip-cards-container {
+      & .fliping-content-section {
+         & .rotating-section-container {
+            & .rotating-section-content-sides-container {
+               &.small-img-center {
+                  & .side-content-container {
+                     .rotating-card-img {
+                        padding: 50px 50px 40px 30px;
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+}
+
 @media (max-width: 1100px) {
    .mobile-flip-cards-container {
       .fliping-content-section {
@@ -1445,6 +1490,10 @@ body.no-scroll {
                                  animation: loadingBarBgGradientAnimation 5s ease infinite;
                               }
                            }
+                        }
+
+                        .integrate-with {
+                           margin-top: 50px
                         }
                      }
 
@@ -1698,6 +1747,14 @@ body.no-scroll {
             .rotating-section-content-sides-container {
                height: unset;
                aspect-ratio: 1 / 1.5;
+
+               &.small-img-center {
+                  & .rotating-content-front-side-container {
+                     .side-content-container {
+                        padding: 25px 25px 0 25px;
+                     }
+                  }
+               }
 
                .rotating-content-front-side-container {
                   .side-content-container {
