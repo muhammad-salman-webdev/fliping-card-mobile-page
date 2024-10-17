@@ -2207,4 +2207,42 @@ body.no-scroll {
          }
       }
    }
+
+   .mobile-flip-cards-container {
+      & .fliping-content-section {
+         & .rotating-section-container {
+            & .rotating-section-content-sides-container {
+               & .rotating-content-back-side-container {
+                  & .backside-content-container {
+                     & .side-toggle-btn {
+                        button {
+                           width: 30px;
+                           font-size: 16px;
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+
+   .mobile-flip-cards-container {
+      & .fliping-content-section {
+         & .rotating-section-container {
+            & .rotating-section-content-sides-container {
+               & .rotating-content-front-side-container {
+                  & .side-content-container {
+                     & .side-toggle-btn {
+                        button {
+                           width: 30px;
+                           font-size: 16px;
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
 }
